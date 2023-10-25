@@ -3,53 +3,54 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <ctime>
 
 class Tarefas {
 private:
-    int id;
-    std::string nome_user;
-    std::string projeto_nome;
-    std::string prioridade;
-    std::string descricao;
-    std::string data_conclusao;
-    std::string status;
+    std::string nome_;
+    // Projeto que ela está contida, o local na máquina
+    std::string projeto_; 
+    std::string prioridade_;
+    std::string descricao_;
+    // Meta para conclusao da tarefa
+    // Se = "00/00/0000", entao nao foi definida uma meta
+    std::string data_conclusao_;
+    bool conclusao_;
 
 public:
-    Tarefas(int id, std::string nome_user, std::string projeto_nome, std::string descricao, std::string data_conclusao, std::string prioridade, std::string status) {
-        this->id = id;
-        this->nome_user = nome_user;
-        this->projeto_nome = projeto_nome;
-        this->descricao = descricao;
-        this->data_conclusao = data_conclusao;
-        this->prioridade = prioridade;
-        this->status = status;
+    Tarefas(std::string nome, std::string prioridade) {
+        nome_ = nome;
+        prioridade_ = prioridade;
+        data_conclusao_ = "00/00/0000";
+        conclusao_ = false;
     }
+    Tarefas(std::string nome, std::string prioridade, std::string conlusao){
+        nome_ = nome;
+        prioridade_ = prioridade;
+        data_conclusao_ = conclusao;
+        conclusao_ = false;
 
-    int getID() {
-        return id;
-    }
-
-    std::string getNomeUser() {
+    std::string NomeTarefa() {
         return nome_user;
     }
 
-    std::string getProjetoNome() {
+    std::string Projeto() {
         return projeto_nome;
     }
 
-    std::string getPrioridade() {
+    std::string Prioridade() {
         return prioridade;
     }
 
-    std::string getDescricao() {
+    std::string CaminhoDescricao() {
         return descricao;
     }
 
-    std::string getDataConclusao() {
+    std::string DataMeta() {
         return data_conclusao;
     }
 
-    std::string getStatus() {
+    bool Conclusao() {
         return status;
     }
 };

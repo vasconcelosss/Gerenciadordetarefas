@@ -1,17 +1,24 @@
 #ifndef TAREFA_H_
 #define TAREFA_H_
 
-class Tarefas {
+#include <iostream>
+#include <string>
+#include <fstream> // Para manipulação de arquivos
+#include <filesystem> // Para manipulação de diretórios
+#include <ctime>
+
+
+class Tarefa {
 
 public:
 
     // Construtores:
 
     //Cria a Tarefa com os parametros passados e sem meta de conclusão na pasta do projeto passado
-    Tarefas(std::string nome, std::string prioridade, std::string projeto);
+    Tarefa(std::string nome, std::string prioridade, std::string projeto);
 
     //Cria a Tarefa com os parametros passados na pasta do projeto passado
-    Tarefas(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto);
+    Tarefa(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto);
 
     // Retorno de membros privados da classe
     std::string NomeTarefa();
@@ -28,7 +35,7 @@ public:
 
 
     // Métodos de manipulação da classe
-    void MudarNome(string novoNome); // Muda o nome da Tarefa
+    void MudarNome(std::string novoNome); // Muda o nome da Tarefa
 
     void ConcluirTarefa(); // Muda o status de conclusão para valor Verdadeiro
 
@@ -47,6 +54,6 @@ private:
 
     void CriaDiretorioTarefa();
 
-}
+};
 
 #endif  // TAREFA_H_

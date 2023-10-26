@@ -11,7 +11,7 @@ void Tarefa::CriaDiretorioTarefa(){
 }
 
 // Construtores:
-Tarefa::Tarefas(std::string nome, std::string prioridade, std::string projeto) {
+Tarefa::Tarefa(std::string nome, std::string prioridade, std::string projeto) {
     nome_ = nome;
     prioridade_ = prioridade;
     data_conclusao_ = "00/00/0000";
@@ -20,7 +20,7 @@ Tarefa::Tarefas(std::string nome, std::string prioridade, std::string projeto) {
 
     CriaDiretorioTarefa();
 }
-Tarefa::Tarefas(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto){
+Tarefa::Tarefa(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto){
     nome_ = nome;
     prioridade_ = prioridade;
     data_conclusao_ = dataConcluir;
@@ -32,32 +32,32 @@ Tarefa::Tarefas(std::string nome, std::string prioridade, std::string dataConclu
 
 // Retorno de membros privados da classe
 std::string Tarefa::NomeTarefa() {
-    return nome_;
+    return Tarefa::nome_;
 }
 
 std::string Tarefa::Projeto() {
-    return projeto_;
+    return Tarefa::projeto_;
 }
 
 std::string Tarefa::Prioridade() {
-    return prioridade_;
+    return Tarefa::prioridade_;
 }
 
 std::string Tarefa::CaminhoDescricao() {
-    return descricao_;
+    return Tarefa::descricao_;
 }
 
 std::string Tarefa::DataMeta() {
-    return data_conclusao_;
+    return Tarefa::data_conclusao_;
 }
 
 bool Tarefa::Conclusao() {
-    return conclusao_;
+    return Tarefa::conclusao_;
 }
 
 
 // Métodos de manipulação da classe
-void Tarefa::MudarNome(string novoNome){
+void Tarefa::MudarNome(std::string novoNome){
     std::filesystem::rename(projeto_+"/"+nome_, projeto_+"/"+novoNome);
     nome_ = novoNome;
 }
@@ -67,8 +67,8 @@ void Tarefa::ConcluirTarefa() {
 }
 
 void Tarefa::Descrever(){
-    descricao_ = projeto_ + "/" + nome_ + "/" + "descricao";
-    std::ofstream arquivo(descricao_);
+    Tarefa::descricao_ = projeto_ + "/" + nome_ + "/" + "descricao";
+    std::ofstream arquivo(Tarefa::descricao_);
     if (arquivo.is_open()) {
         std::string texto;
 
@@ -81,14 +81,14 @@ void Tarefa::Descrever(){
         arquivo.close();
     } 
     else {
-        std::cerr << "Não foi possível criar o arquivo." << std::endl;
+        std::cout << "Não foi possível criar o arquivo." << std::endl;
     }
 }
 
 // Pré-condição: Arquivo de descrição já existe
-void MudarDescricao(){
+void Tarefa::MudarDescricao(){
 
-    std::ofstream arquivo(descricao_, std::ios::trunc);
+    std::ofstream arquivo(CaminhoDescricao(), std::ios::trunc);
 
 
     if (arquivo.is_open()) {
@@ -103,6 +103,6 @@ void MudarDescricao(){
         arquivo.close();
     }
     else {
-        std::cerr << "Não foi possível criar o arquivo." << std::endl;
+        std::cout << "Não foi possível criar o arquivo." << std::endl;
     }
 }

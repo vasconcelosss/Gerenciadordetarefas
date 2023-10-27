@@ -101,7 +101,7 @@ void Tarefa::MudarDescricao(){
     if (arquivo.is_open()) {
         std::string texto;
 
-        std::cout << std::endl << "Digite o texto a ser escrito no arquivo (Ctrl+D para encerrar no Linux ou Ctrl+Z no Windows):" << std::endl;
+        std::cout << std::endl << "Digite o texto a ser escrito no arquivo substituindo o anterior (Ctrl+D para encerrar no Linux ou Ctrl+Z no Windows):" << std::endl;
 
         while (std::cin >> texto) {
             arquivo << texto << ' ';

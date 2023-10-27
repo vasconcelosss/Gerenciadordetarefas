@@ -4,7 +4,8 @@
 #include <iostream>
 #include <string>
 #include <fstream> // Para manipulação de arquivos
-#include <filesystem> // Para manipulação de diretórios
+#include <sys/stat.h>  
+#include <stdio.h>
 
 
 class Usuario {
@@ -17,10 +18,7 @@ public:
     // Retorno de membros privados da classe
     std::string nomeUsuario();
 
-    std::string CaminhoUsuario();
-
 private:
-    std::string local_usuario_; // Guarda o caminho para o usuário na máquina
     std::string nome_;
 
 };

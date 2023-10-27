@@ -34,11 +34,12 @@ Responsável por gerenciar informações dos projetos, incluindo nome, descriç�
 - `string categoria`
 - `bool conclusao`
 
-#### Construtor:
+#### Responsabilidades:
+##### Construtor:
 `Projetos(string categoria, string diretorio)`
 // Cria um Projeto com a categoria e no diretório (usuário) passado
 
-#### Métodos:
+##### Métodos:
 - `string nomeProjeto()`
   // Retorna o nome do Projeto
 - `string pastaTarefas()`
@@ -62,20 +63,22 @@ Responsável por gerenciar informações das tarefas, incluindo nome, prioridade
 - `string data_conclusao_`
 - `bool conclusao_`
 
-#### Construtor:
+
+#### Responsabilidades:
+##### Construtor:
 - `Tarefa(std::string nome, std::string prioridade, std::string projeto)`
 //Cria uma tarefa com nome, prioridade e associação a um projeto.
 - `Tarefa(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto)`
 //Cria uma tarefa com nome, prioridade, data de conclusão e associação a um projeto.
 
-#### Métodos:
-- `string NomeTarefa()`
-- `string Projeto()`
-- `string Propriedade()`
-- `string CaminhoDescricao()`
-- `string DataMeta()`
-- `bool Conclusao()`
-- `void MudarNome(string novoNome)`
-- `void ConcluirTarefa()`
-- `void Descrever()`
-- `void MudarDescricao()`
+##### Métodos:
+- `string NomeTarefa()` // Retorna o nome da Tarefa
+- `string Projeto()` // Retorna o o diretório do projeto e usuário de Tarefa ("Usuario/Projeto")
+- `string Propriedade()` // Retorna a prioridade da Tarefa
+- `string CaminhoDescricao()` // Retorna o caminho para o arquivo descricao da Tarefa
+- `string DataMeta()` // Retorna a data de meta de conclusão da Tarefa
+- `bool Conclusao()` // Retorna o estado de conclusão da Tarefa
+- `void MudarNome(string novoNome)`// Muda o nome da Tarefa
+- `void ConcluirTarefa()` // Muda o status de conclusão para valor Verdadeiro
+- `void Descrever()` // Cria um arquivo descricao.txt na pasta da tarefa com a descrição da mesma pedida na função
+- `void MudarDescricao()` // Apaga o conteúdo da descrição e substitui por um outro pedido na função

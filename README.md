@@ -15,8 +15,8 @@ Responsável por gerenciar informações do usuário, como seu nome e a pasta on
 - `string nome`
 
 #### Construtor:
-`Usuario(string name)`
-// Cria um usuário com o nome "name"
+`Usuario(string nome)`
+// Cria um usuário
 
 #### Métodos:
 - `string nomeUsuario()`

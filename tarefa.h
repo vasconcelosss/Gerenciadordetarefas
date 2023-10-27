@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream> // Para manipulação de arquivos
-#include <filesystem> // Para manipulação de diretórios
-#include <ctime>
+#include <sys/stat.h>   // Para manipulação de diretórios
 
 
 class Tarefa {

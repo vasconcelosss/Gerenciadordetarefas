@@ -3,11 +3,14 @@
 #include <iostream>
 #include <string>
 #include <fstream> // Para manipulação de arquivos
-#include <filesystem> // Para manipulação de diretórios
-#include <ctime>
+// Para manipulação de diretórios
+#include <sys/stat.h>  
+#include <stdio.h>
+
 
 void Tarefa::CriaDiretorioTarefa(){
-    std::filesystem::create_directory(projeto_+"/"+nome_);
+    std::string caminho_tarefa = projeto_ + "/" + nome_;
+    mkdir(caminho_tarefa.c_str(), 0777);
 }
 
 // Construtores:
@@ -58,7 +61,11 @@ bool Tarefa::Conclusao() {
 
 // Métodos de manipulação da classe
 void Tarefa::MudarNome(std::string novoNome){
-    std::filesystem::rename(projeto_+"/"+nome_, projeto_+"/"+novoNome);
+
+    std::string antigo_nome = projeto_ + "/" + nome_;
+    std::string novo_nome = projeto_ + "/" + novoNome;
+
+    rename(antigo_nome.c_str(), novo_nome.c_str());
     nome_ = novoNome;
 }
 

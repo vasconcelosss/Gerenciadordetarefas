@@ -27,31 +27,41 @@ Responsável por gerenciar informações do usuário, como seu nome e a pasta on
 ### Class `Projetos`:
 Responsável por gerenciar informações dos projetos, incluindo nome, descrição, categoria e status de conclusão.
 #### Colaborações:
-- `string nome`
-- `string usuario`
-- `string tarefa`
-- `string descricao`
-- `string categoria`
-- `bool conclusao`
+- `string nome_`
+- `string usuario_`
+- `string descricao_`
+- `string categoria_`
+- `bool conclusao_`
 
 #### Responsabilidades:
 ##### Construtor:
 `Projetos(string categoria, string diretorio)`
 // Cria um Projeto com a categoria e no diretório (usuário) passado
+`Projeto(std::string nome, std::string categoria, std::string diretorio)` 
+// Cria um Projeto com o nome, a categoria e no diretório (usuário) passado
 
 ##### Métodos:
-- `string nomeProjeto()`
+- `string NomeProjeto()`
   // Retorna o nome do Projeto
-- `string pastaTarefas()`
-  // Retorna o caminho da pasta onde estão as tarefas
-- `string categoriaProjeto()`
+- `string UsuarioDoProjeto()`
+  // Retorna o Usuário ao qual o projeto está vinculado
+- `string CaminhoDescricao()`
+  // Retorna o caminho para o arquivo de texto de descrição
+- `string CategoriaProjeto()`
   // Retorna a categoria do Projeto
-- `bool conclusaoProjeto()`
+- `bool ConclusaoProjeto()`
   // Retorna o status de conclusão do Projeto
-- `string caminDescricao()`
-  //Retorna o caminho para o arquivo de texto de descrição
-- `void mudarNome(string novoNome)`
-  //Modifica o nome do Projeto para o novo passado
+- `void MudarNome(string novoNome)`
+  // Modifica o nome do Projeto para o novo passado
+- `void ConcluirProjeto()`
+  // Muda o status de conclusão para valor Verdadeiro
+- `void Descrever(string textoDescrica)`
+  // Cria um arquivo descricao.txt na pasta da tarefa com a descrição da mesma pedida na função
+- `void MudarDescricao(std::string NovaDescricao)`
+  // Apaga o conteúdo da descrição e substitui por um outro pedido na função
+- `void ExibiDescricao()`
+  // Exibe o conteúdo da descrição
+  
 
 ### Class `Tarefas`:
 Responsável por gerenciar informações das tarefas, incluindo nome, prioridade, descrição, data de conclusão e status de conclusão.

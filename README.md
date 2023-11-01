@@ -92,3 +92,4 @@ Responsável por gerenciar informações das tarefas, incluindo nome, prioridade
 - `void ConcluirTarefa()` // Muda o status de conclusão para valor Verdadeiro
 - `void Descrever()` // Cria um arquivo descricao.txt na pasta da tarefa com a descrição da mesma pedida na função
 - `void MudarDescricao()` // Apaga o conteúdo da descrição e substitui por um outro pedido na função
+- `void ExibirDescrição()`

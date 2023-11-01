@@ -73,18 +73,12 @@ void Tarefa::ConcluirTarefa() {
     conclusao_ = true;
 }
 
-void Tarefa::Descrever(){
+void Tarefa::Descrever(std::string textoDescricao){
     Tarefa::descricao_ = projeto_ + "/" + nome_ + "/" + "descricao";
     std::ofstream arquivo(Tarefa::descricao_);
     if (arquivo.is_open()) {
-        std::string texto;
 
-        std::cout << std::endl << "Digite o texto a ser escrito no arquivo (Ctrl+D para encerrar no Linux ou Ctrl+Z no Windows):" << std::endl;
-
-        while (std::cin >> texto) {
-            arquivo << texto << ' ';
-        }
-
+        arquivo << textoDescricao;
         arquivo.close();
     } 
     else {
@@ -93,23 +87,29 @@ void Tarefa::Descrever(){
 }
 
 // Pré-condição: Arquivo de descrição já existe
-void Tarefa::MudarDescricao(){
+void Tarefa::MudarDescricao(std::string NovaDescricao){
 
     std::ofstream arquivo(CaminhoDescricao(), std::ios::trunc);
-
-
     if (arquivo.is_open()) {
-        std::string texto;
 
-        std::cout << std::endl << "Digite o texto a ser escrito no arquivo substituindo o anterior (Ctrl+D para encerrar no Linux ou Ctrl+Z no Windows):" << std::endl;
-
-        while (std::cin >> texto) {
-            arquivo << texto << ' ';
-        }
-
+        arquivo << NovaDescricao;
         arquivo.close();
-    }
+    } 
     else {
         std::cout << "Não foi possível criar o arquivo." << std::endl;
+    }
+}
+
+void Tarefa::ExibiDescricao(){
+    std::ifstream arquivo(descricao_);
+
+    if (arquivo.is_open()) {
+        std::string linha;
+        while (std::getline(arquivo, linha)) {
+            std::cout << linha << std::endl;
+        }
+        arquivo.close();
+    } else {
+        std::cerr << "Não foi possível abrir o arquivo: " << std::endl;
     }
 }

@@ -110,6 +110,149 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
     }
 }
 
+void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, const std::string& projeto_atual){
+    
+    bool fim = false;
+    Projeto* ptr_projeto_atual = nullptr;
+        for(auto& proj : projetos){
+            if (proj.NomeProjeto() == projeto_atual) {
+                ptr_projeto_atual = &proj;
+                break;
+            }
+        }
+    while(!fim){
+
+        std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
+        std::cout << std::endl << "Se gostaria de: " << std::endl;
+        std::cout << "Renomear o Projeto " << ptr_projeto_atual->NomeProjeto() << ". Digite 1" << std::endl;
+        if(ptr_projeto_atual->CaminhoDescricao() == ""){
+            std::cout << "Criar uma Descrição. Digite 200" << std::endl;
+        } else{
+            std::cout << "Mudar a descrição (Apaga a anterior). Digite 201" << std::endl;
+            std::cout << "Exibir a descrição. Digite 202" << std::endl;
+        }
+        std::cout << "Criar uma Tarefa. Digite 3" << std::endl;
+        if(ptr_projeto_atual->Tarefas.size()){
+            std::cout << "Entrar em uma Tarefa. Digite 4" << std::endl;
+        }
+        else{
+            std::cout << "Ápós criar uma Tarefa, entrar em uma. Digite 4" << std::endl;
+        }
+        std::cout << "Concluir o Projeto. Digite 5" << std::endl;
+        std::cout << "Ver o estatus de conclusão do Projeto. Digite 6" << std::endl;
+        std::cout << "Ver a categoria do Projeto. Digite 7" << std::endl;
+        std::cout << "Voltar as opções anteriores. Digite 8" << std::endl;
+
+        int num;
+        std::cin >> num;
+
+        if(num == 1){
+            std::string novo_nome_projeto;
+
+            std::cout << "Digite o novo nome do Projeto: ";
+            std::cin >> novo_nome_projeto;
+            
+            ptr_projeto_atual->MudarNome(novo_nome_projeto);
+
+            std::cout << "Projeto renomeado!" << std::endl;
+        }
+        else { 
+            if(num == 200){
+                std::string descricao_proj;
+                std::cout << "Digite a descrição do Projeto: (Digite \"fim\" para terminar) " << std::endl;
+                std::string linha;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                while (linha!= "fim"){
+                    std::getline(std::cin, linha);
+                    if(linha != "fim"){
+                        descricao_proj += linha + "\n";
+                    }
+                }
+                ptr_projeto_atual->Descrever(descricao_proj);
+                std::cout << std::endl << "Descrição adicionada" << std::endl;
+            }
+            else {
+                if(num == 201){
+                    std::string nova_descricao_proj;
+                    std::cout << "Digite a nova descrição do Projeto: (Prescione \"fim\" para terminar) " << std::endl;
+                    std::string linha;
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    while (linha!= "fim"){
+                        std::getline(std::cin, linha);
+                        if(linha != "fim"){
+                            nova_descricao_proj += linha + "\n";
+                        }
+                    }
+                    ptr_projeto_atual->MudarDescricao(nova_descricao_proj);
+
+                    std::cout << std::endl << "Descrição adicionada" << std::endl;
+                }
+                if(num == 202){
+                    std::cout << std::endl;
+                    ptr_projeto_atual->ExibiDescricao();
+                    std::cout << std::endl << std::endl;
+                }
+                if(num == 3){
+                    std::string nome_tarefa;
+                    std::string prioridade_tarefa;
+                    std::string data_meta_tarefa;
+                    std::string diretorio_completo = usuario_atual + "/" + projeto_atual;
+
+                    std::cout << "Digite o nome da Tarefa a ser criada: ";
+                    std::cin >> nome_tarefa;
+                    std::cout << "Digite a Prioridade da Tarefa a ser criada (Baixa/Média/Alta): ";
+                    std::cin >> prioridade_tarefa;
+
+                    std::string resposta;
+                    std::cout << std::endl << "Deseja dar uma Data de meta para conclusão da Tarefa? [S/N]" << std::endl;
+                    std::cin >> resposta;
+                    if(resposta == "S"){
+                        std::cout << "Informe a data (dd/mm/aaaa): ";
+                        std::cin >> data_meta_tarefa;
+                        ptr_projeto_atual->Tarefas.push_back(Tarefa(nome_tarefa, prioridade_tarefa, data_meta_tarefa, diretorio_completo));
+                    }else{
+                        std::cout << "Criando sem data..." << std::endl;
+                        ptr_projeto_atual->Tarefas.push_back(Tarefa(nome_tarefa, prioridade_tarefa, diretorio_completo));
+                    }
+
+                    std::cout << "Tarefa " << nome_tarefa << " criada!" << std::endl;
+                    std::cout << "Entrando em " << nome_tarefa << "!" << std::endl;
+
+                    FuncoesTarefa(usuario_atual, ptr_projeto_atual->Tarefas,nome_tarefa);
+                }
+                if(num == 4){
+                    std::string nome_tarefa;
+                    std::cout << "Digite o nome da Tarefa que deseja entrar: ";
+                    std::cin >> nome_tarefa;
+                    FuncoesTarefa(usuario_atual, ptr_projeto_atual->Tarefas,nome_tarefa);
+                }
+                if(num == 5){
+                    ptr_projeto_atual->ConcluirProjeto();
+																	   std::cout << "Projeto concluido!" << std::endl;
+                }
+                if(num == 6){
+                    if(ptr_projeto_atual->ConclusaoProjeto()){
+                        std::cout << "Concluido!" << std::endl;
+                    } else{
+                        std::cout << "Ainda não concluido." << std::endl;
+                    }
+                }
+                if(num == 7){
+																  if(ptr_projeto_atual->CategoriaProjeto() != ""){
+                      std::cout << "A categoria é: " << ptr_projeto_atual->CategoriaProjeto() << std::endl;
+																		} else{
+																			     std::cout << "A categoria não foi definida." << std::endl;
+																		}
+                }
+                if(num == 8){
+                        std::cout << std::endl;
+                        fim = true;
+                }
+            }
+        }
+    }
+}
+
 void Inicio(std::vector<Usuario>& users){  
 bool fim= false;
     while(!fim){

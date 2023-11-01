@@ -63,16 +63,48 @@ void Projeto::ConcluirProjeto(){
 }
 
 void Projeto::Descrever(std::string textoDescricao){
+    
+    Projeto::descricao_ = usuario_ + "/" + nome_ + "/" + "descricao";
+    std::ofstream arquivo(Projeto::descricao_);
 
+    if (arquivo.is_open()) {
+        
+        arquivo << textoDescricao;
+        arquivo.close();
+    } 
+    else {
+        std::cout << "Não foi possível criar o arquivo." << std::endl;
+    }
+    
 }
 
 // Pré-condição: Arquivo de descrição já existe
 void Projeto::MudarDescricao(std::string NovaDescricao){
 
+    std::ofstream arquivo(CaminhoDescricao(), std::ios::trunc);
+
+    if (arquivo.is_open()) {
+        arquivo << NovaDescricao;
+        arquivo.close();
+    } 
+    else {
+        std::cout << "Não foi possível criar o arquivo." << std::endl;
+    }
 }
 
 void Projeto::ExibiDescricao(){
-   
+    
+    std::ifstream arquivo(descricao_);
+
+    if (arquivo.is_open()) {
+        std::string linha;
+        while (std::getline(arquivo, linha)) {
+            std::cout << linha << std::endl;
+        }
+        arquivo.close();
+    } else {
+        std::cerr << "Não foi possível abrir o arquivo: " << std::endl;
+    }
 }
 
 

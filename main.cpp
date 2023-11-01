@@ -253,6 +253,74 @@ void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, con
     }
 }
 
+void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
+
+
+    bool fim = false;
+    int num_usuario_atual = 0;
+        for(bool achado = false; !achado; num_usuario_atual++){
+            if(users[num_usuario_atual].nomeUsuario() == usuario_atual){
+                achado = true;
+            }
+        }
+    while(!fim){
+
+        std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
+        std::cout << std::endl << "Você deseja:" << std::endl;
+        std::cout << "Criar um Projeto. (Digite 1)" << std::endl;  
+        if(users[num_usuario_atual].Projetos.size()){
+            std::cout << "Entrar em um Projeto. (Digite 2)" << std::endl;
+        }
+        else{
+            std::cout << "Após criar um Projeto, digite 2: Para entrar em um Projeto." << std::endl;
+        }
+        std::cout << "Voltar as opções anteriores. (Digite 3)" << std::endl;
+
+        int num;
+        std::cin >> num;
+
+        if(num == 1){
+            std::string nome_projeto;
+            std::string categoria_projeto;
+
+            std::cout << "Digite o nome do Projeto a ser criado: ";
+            std::cin >> nome_projeto;
+
+            std::string resposta;
+            std::cout << std::endl << "Deseja dar uma categoria ao projeto? [S/N]" << std::endl;
+            std::cin >> resposta;
+            if(resposta == "S"){
+                std::cout << "Informe a categoria: ";
+                std::cin >> categoria_projeto;
+                users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, categoria_projeto, usuario_atual));
+            }else{
+                std::cout << "Criando sem categoria..." << std::endl;
+                users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, usuario_atual));
+            }
+            
+            
+            std::cout << "Projeto " << nome_projeto << " criado!" << std::endl;
+            std::cout << "Entrando em " << nome_projeto << "!" << std::endl;
+
+            FuncoesProjeto(usuario_atual, users[num_usuario_atual].Projetos,nome_projeto);
+        }
+        else { 
+            if(num == 2){
+                std::string nome_projeto;
+                std::cout << "Digite o nome do Projeto que deseja entrar: ";
+                std::cin >> nome_projeto;
+                FuncoesProjeto(usuario_atual, users[num_usuario_atual].Projetos,nome_projeto);
+            }
+            else {
+                if(num == 3){
+                    std::cout << std::endl << std::endl;
+                    fim = true;
+                }
+            }
+        }
+    }
+}
+
 void Inicio(std::vector<Usuario>& users){  
 bool fim= false;
     while(!fim){

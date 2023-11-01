@@ -34,6 +34,78 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
         std::cout << "Ver a Prioridade da sua tarefa. Digite 6" << std::endl;        
         std::cout << "Voltar as opções anteriores. Digite 7" << std::endl;
 
+	int num;
+        std::cin >> num;
+
+        if(num == 1){
+            std::string novo_nome_tarefa;
+
+            std::cout << "Digite o novo nome a ser atribuido para sua Tarefa: ";
+            std::cin >> novo_nome_tarefa;
+            
+            ptr_tarefa_atual->MudarNome(novo_nome_tarefa);
+
+            std::cout << "A Tarefa foi renomeada!" << std::endl;
+        }
+        else { 
+            if(num == 200){
+                std::string descricao_taref;
+                std::cout << "Digite a descrição da Tarefa: (Digite \"fim\" para terminar) " << std::endl;
+                std::string linha;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                while (linha!= "fim"){
+                    std::getline(std::cin, linha);
+                    if(linha != "fim"){
+                        descricao_taref += linha + "\n";
+                    }
+                }
+                ptr_tarefa_atual->Descrever(descricao_taref);
+                std::cout << std::endl << "Descrição adicionada" << std::endl;
+            }
+            else {
+                if(num == 201){
+                    std::string nova_descricao_taref;
+                    std::cout << "Digite a nova descrição da Tarefa: (Prescione \"fim\" para terminar) " << std::endl;
+                    std::string linha;
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    while (linha!= "fim"){
+                        std::getline(std::cin, linha);
+                        if(linha != "fim"){
+                            nova_descricao_taref += linha + "\n";
+                        }
+                    }
+                    ptr_tarefa_atual->MudarDescricao(nova_descricao_taref);
+
+                    std::cout << std::endl << "Descrição adicionada" << std::endl;
+                }
+                if(num == 202){
+                    std::cout << std::endl;
+                    ptr_tarefa_atual->ExibiDescricao();
+                    std::cout << std::endl << std::endl;
+                }
+                if(num == 3){
+                    ptr_tarefa_atual->ConcluirTarefa();
+                    std::cout << "Tarefa concluída!" << std::endl;
+                }
+                if(num == 4){
+                    if(ptr_tarefa_atual->Conclusao()){
+                        std::cout << "Concluido!" << std::endl;
+                    } else{
+                        std::cout << "Ainda não concluido." << std::endl;
+                    }
+                }
+                if(num == 5){
+                    std::cout << "A data é: " << ptr_tarefa_atual->DataMeta() << std::endl;
+                }
+												   	if(num == 6){
+																  	std::cout << "A prioridade da Tarefa é: " << ptr_tarefa_atual->Prioridade() << std::endl;
+																}
+                if(num == 7){
+                        std::cout << std::endl;
+                        fim = true;
+                }
+            }
+        }
        
     }
 }

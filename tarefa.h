@@ -38,10 +38,11 @@ public:
 
     void ConcluirTarefa(); // Muda o status de conclusão para valor Verdadeiro
 
-    void Descrever();  // Cria um arquivo descricao.txt na pasta da tarefa com a descrição da mesma pedida na função
+    void Descrever(std::string textoDescricao);  // Cria um arquivo descricao.txt na pasta da tarefa com a descrição da mesma pedida na função
 
     // Pré-condição: Arquivo de descrição já existe
-    void MudarDescricao(); // Apaga o conteúdo da descrição e substitui por um outro pedido na função
+    void MudarDescricao(std::string NovaDescricao); // Apaga o conteúdo da descrição e substitui por um outro pedido na função
+    void ExibiDescricao();
 
 private:
     std::string nome_;

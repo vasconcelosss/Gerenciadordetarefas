@@ -274,23 +274,31 @@ void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
 
     bool fim = false;
     int num_usuario_atual = 0;
-        for(bool achado = false; !achado; num_usuario_atual++){
-            if(users[num_usuario_atual].nomeUsuario() == usuario_atual){
-                achado = true;
-            }
+    for(bool achado = false; !achado; num_usuario_atual++){
+        if(users[num_usuario_atual].nomeUsuario() == usuario_atual){
+            achado = true;
         }
+        if((num_usuario_atual-2) > users.size()){
+            std::cout << "Usuario inexistente!" << std::endl;
+        }
+    }
+    num_usuario_atual--;
+
     while(!fim){
 
-        std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
-        std::cout << std::endl << "Você deseja:" << std::endl;
-        std::cout << "Criar um Projeto. (Digite 1)" << std::endl;  
+        std::cout << std::endl << "Usuário " << users[num_usuario_atual].nomeUsuario() << std::endl;
+        std::cout << std::endl << "O que deseja fazer?" << std::endl;
+
+        std::cout << "Digite 1: Para criar um Projeto." << std::endl;  
         if(users[num_usuario_atual].Projetos.size()){
-            std::cout << "Entrar em um Projeto. (Digite 2)" << std::endl;
+            std::cout << "Digite 2: Para entrar em um Projeto." << std::endl;
         }
         else{
-            std::cout << "Após criar um Projeto, digite 2: Para entrar em um Projeto." << std::endl;
+            std::cout << "Após criar um Projeto você poderá entrar digitando 2." << std::endl;
         }
-        std::cout << "Voltar as opções anteriores. (Digite 3)" << std::endl;
+        std::cout << "Digite 3: Listar os Projetos deste Usuário." << std::endl;
+        std::cout << "Digite 4: Mudar o Nome do Usuário." << std::endl;
+        std::cout << "Digite 5: Para voltar as opções anteriores." << std::endl;
 
         int num;
         std::cin >> num;
@@ -302,18 +310,29 @@ void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
             std::cout << "Digite o nome do Projeto a ser criado: ";
             std::cin >> nome_projeto;
 
-            std::string resposta;
-            std::cout << std::endl << "Deseja dar uma categoria ao projeto? [S/N]" << std::endl;
-            std::cin >> resposta;
-            if(resposta == "S"){
-                std::cout << "Informe a categoria: ";
-                std::cin >> categoria_projeto;
-                users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, categoria_projeto, usuario_atual));
-            }else{
-                std::cout << "Criando sem categoria..." << std::endl;
-                users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, usuario_atual));
+            bool respostaOk = false;
+
+            while(!respostaOk){
+                std::string resposta;
+                std::cout << std::endl << "Deseja dar uma categoria ao projeto? [S/N]" << std::endl;
+                std::cin >> resposta;
+
+                if(resposta == "S"){
+                    respostaOk = true;
+                    std::cout << "Informe a categoria: ";
+                    std::cin >> categoria_projeto;
+                    users[num_usuario_atual].AdicionaProjeto(Projeto(nome_projeto, categoria_projeto, usuario_atual));
+                }else{
+                    if(resposta == "N"){
+                        respostaOk = true;
+                        std::cout << "Criando sem categoria..." << std::endl;
+                        users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, usuario_atual));
+                    }
+                    else{
+                        std::cout << "Resposta inválida! Digite S para Sim  ou  N para Não" << std::endl;
+                    }
+                }
             }
-            
             
             std::cout << "Projeto " << nome_projeto << " criado!" << std::endl;
             std::cout << "Entrando em " << nome_projeto << "!" << std::endl;
@@ -329,8 +348,33 @@ void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
             }
             else {
                 if(num == 3){
-                    std::cout << std::endl << std::endl;
-                    fim = true;
+                    std::cout << "Informe o número da maneira que gostaria de listar:" << std::endl;
+                    std::cout << "1 - Por Nome" << std::endl;
+                    std::cout << "2 - Por Categoria"  << std::endl;
+                    std::cout << "3 - Por Ordem de Criação" << std::endl;
+
+                    int resposta;
+                    std::cin >> resposta;
+
+                    users[num_usuario_atual].ListarProjetos(resposta);
+                }
+                else{
+                    if(num == 4){
+                        std::string novo_nome_usuario;
+
+                        std::cout << "Digite o novo nome do Usuario: ";
+                        std::cin >> novo_nome_usuario;
+                        
+                        users[num_usuario_atual].MudarNome(novo_nome_usuario);
+
+                        std::cout << "Usuario renomeado!" << std::endl;
+                    }
+                    else{
+                        if(num == 5){
+                            std::cout << std::endl << std::endl;
+                            fim = true;
+                        }
+                    }
                 }
             }
         }

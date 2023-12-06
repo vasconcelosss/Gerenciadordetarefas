@@ -25,7 +25,13 @@ Responsável por gerenciar informações do usuário, como seu nome e a pasta on
   // Retorna o string do caminho da pasta onde estão os projetos
 
 ### Class `Projetos`:
-Responsável por gerenciar informações dos projetos, incluindo nome, descrição, categoria e status de conclusão.
+Responsável pela criação, manipulação e descrição dos projetos, incluindo a capacidade de manipular diretório, aqruivos de descrição e outras operações relacionadas.
+- Os construtores inicializam os membros da classe com os valores fornecidos e chamam o método CriaDiretorioProjeto para criar o diretório do projeto.
+- Método CriaDiretorioProjeto cria um diretório para o projeto, utilizando o nome do usuário e o nome do projeto.
+- Métodos de retorno:
+    - NomeProjeto(), UsuárioDoProjeto(), CaminhoDescrição(), CategoriaProjeto() e ConclusãoProjeto() retornam os membros privados da classe.
+- Métodos de manipulação:
+    - MudarNomeDoUsuario, MudarNome, MudarCategoria, ConcluirProjeto, Descrever, MudarDescricao e ExibiDescrizo realizam operações como mudar o nome do usuário associado ao projeto, mudar o nome do projeto, marcar o projeto como concluído, descrever o projeto, manipular a descrição do projeto e exibir a descrição.
 #### Colaborações:
 - `string nome_`
 - `string usuario_`

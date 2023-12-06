@@ -12,50 +12,66 @@ Projeto::Projeto(std::string nome, std::string diretorio){
     nome_ = nome;
     usuario_ = diretorio;
     conclusao_ = false;
+    categoria_ = "";
 
     CriaDiretorioProjeto();
 
 }
 
 Projeto::Projeto(std::string nome, std::string categoria, std::string diretorio){
+    
     nome_ = nome;
     usuario_ = diretorio;
     conclusao_ = false;
     categoria_ = categoria;
 
     CriaDiretorioProjeto();
+
 }
 
 
 // Retorno de membros privados da classe
-std::string Projeto::NomeProjeto(){
+std::string Projeto::NomeProjeto() const {
     return nome_;
 }
 
-std::string Projeto::UsuarioDoProjeto(){
+std::string Projeto::UsuarioDoProjeto() const {
     return usuario_;
 }
 
-std::string Projeto::CaminhoDescricao(){
+std::string Projeto::CaminhoDescricao() const {
     return descricao_;
 }
 
-std::string Projeto::CategoriaProjeto(){
+std::string Projeto::CategoriaProjeto() const {
     return categoria_;
 }
 
-bool Projeto::ConclusaoProjeto(){
+bool Projeto::ConclusaoProjeto() const {
     return conclusao_;
 }
 
 
 // Métodos de manipulação da classe
+void Projeto::MudarNomeDoUsuario(std::string novoUsuario){
+    usuario_ = novoUsuario;
+
+    for(auto& tarefa : Tarefas){
+        tarefa.MudarNomedoProjeto(novoUsuario);
+    }
+}
+
+
 void Projeto::MudarNome(std::string novoNome){
     std::string antigo_nome = usuario_ + "/" + nome_;
     std::string novo_nome = usuario_ + "/" + novoNome;
 
     rename(antigo_nome.c_str(), novo_nome.c_str());
     nome_ = novoNome;
+}
+
+void Projeto::MudarCategoria(std::string NovaCategoria){
+    categoria_ = NovaCategoria;
 }
 
 void Projeto::ConcluirProjeto(){
@@ -78,6 +94,7 @@ void Projeto::Descrever(std::string textoDescricao){
     
 }
 
+
 // Pré-condição: Arquivo de descrição já existe
 void Projeto::MudarDescricao(std::string NovaDescricao){
 
@@ -92,7 +109,7 @@ void Projeto::MudarDescricao(std::string NovaDescricao){
     }
 }
 
-void Projeto::ExibiDescricao(){
+void Projeto::ExibiDescricao() const {
     
     std::ifstream arquivo(descricao_);
 

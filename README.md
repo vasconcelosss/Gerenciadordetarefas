@@ -27,10 +27,21 @@ Responsável pela criação e manipulação de usuários, projetos e tarefas, pe
 // Cria um usuário
 
 #### Métodos:
-- `string nomeUsuario()`
-  // Retorna o nome do Usuario
-- `string pastaProjetos()`
-  // Retorna o string do caminho da pasta onde estão os projetos
+- `string nomeUsuario() const`
+	// Retorno de membros privados da classe
+- `void AdicionaProjeto(Projeto p)` 
+	//Adiciona um projeto a lista
+- `void MudarNome(std::string novoNome)` 
+	//Modifica o nome do Usuario para o novo passado
+- `void ListarProjetos(int forma) const` 
+	//Imprime os Nomes dos Projetos de acordo com o parametro passado
+ privadas 
+- `std::list<std::string> OrdenaNomes1(const std::list<Projeto>& Projetos)` 
+	// Recebe uma lista de Projetos e retorna uma lista dos nomes em ordem
+- `std::list<std::string> OrdenaNomes2(const std::list<Projeto>& Projetos)`
+	// Recebe uma lista de Projetos e retorna uma lista dos Nomes ordenada de acordo com as categorias
+
+
 
 ### Class `Projetos`:
 Responsável pela criação, manipulação e descrição dos projetos, incluindo a capacidade de manipular diretório, aqruivos de descrição e outras operações relacionadas.

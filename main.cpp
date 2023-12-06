@@ -17,24 +17,31 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
                 break;
             }
         }
+    
+    if(ptr_tarefa_atual == nullptr){
+        std::cout << "Tarefa não existente!" << std::endl;
+        return;
+    }
+
     while(!fim){
 
         std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
-        std::cout << std::endl << "Caso você tenha interesse em: " << std::endl;
-        std::cout << "Renomear a Tarefa " << ptr_tarefa_atual->NomeTarefa() << ". Digite 1" << std::endl;
+        std::cout << std::endl << "O que deseja fazer?" << std::endl;
+        std::cout << "Digite 1: Para renomear a Tarefa " << ptr_tarefa_atual->NomeTarefa() << "." << std::endl;
         if(ptr_tarefa_atual->CaminhoDescricao() == ""){
-            std::cout << "Criar uma Descrição para a Tarefa. Digite 200" << std::endl;
+            std::cout << "Digite 200: Para criar uma Descrição para a Tarefa." << std::endl;
         } else{
-            std::cout << "Mudar a descrição (Apaga a anterior). Digite 201" << std::endl;
-            std::cout << "Exibir a descrição da Tarefa. Digite 202" << std::endl;
+            std::cout << "Digite 201: Para mudar a descrição (Apaga a anterior)." << std::endl;
+            std::cout << "Digite 202: Para exibir a descrição da Tarefa." << std::endl;
         }
-        std::cout << "Concluir a Tarefa. Digite 3" << std::endl;
-        std::cout << "Ver o estatus de conclusão da Tarefa. Digite 4" << std::endl;
-        std::cout << "Ver a Data meta de Conclusão. Digite 5" << std::endl;
-        std::cout << "Ver a Prioridade da sua tarefa. Digite 6" << std::endl;        
-        std::cout << "Voltar as opções anteriores. Digite 7" << std::endl;
+        std::cout << "Digite 3: Para concluir a Tarefa." << std::endl;
+        std::cout << "Digite 4: Para ver o estatus de conclusão da Tarefa." << std::endl;
+        std::cout << "Digite 50: Para ver a Data meta de Conclusão." << std::endl;
+        std::cout << "Digite 51: Para mudar a data meta da Tarefa." << std::endl;
+        std::cout << "Digite 6: Para ver a Prioridade da sua tarefa." << std::endl;        
+        std::cout << "Digite 7: Para voltar as opções anteriores." << std::endl;
 
-	int num;
+	    int num;
         std::cin >> num;
 
         if(num == 1){
@@ -65,7 +72,7 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
             else {
                 if(num == 201){
                     std::string nova_descricao_taref;
-                    std::cout << "Digite a nova descrição da Tarefa: (Prescione \"fim\" para terminar) " << std::endl;
+                    std::cout << "Digite a nova descrição da Tarefa: (Digite \"fim\" para terminar) " << std::endl;
                     std::string linha;
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     while (linha!= "fim"){
@@ -94,12 +101,22 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
                         std::cout << "Ainda não concluido." << std::endl;
                     }
                 }
-                if(num == 5){
+                if(num == 50){
                     std::cout << "A data é: " << ptr_tarefa_atual->DataMeta() << std::endl;
                 }
-												   	if(num == 6){
-																  	std::cout << "A prioridade da Tarefa é: " << ptr_tarefa_atual->Prioridade() << std::endl;
-																}
+                if(num == 51){
+                    std::string novaData;
+
+                    std::cout << "Digite a nova data da Tarefa: ";
+                    std::cin >> novaData;
+                        
+                    ptr_tarefa_atual->MudarDataMeta(novaData);
+
+                    std::cout << "Data modificada para " << novaData << std::endl;
+                }
+				if(num == 6){
+					std::cout << "A prioridade da Tarefa é: " << ptr_tarefa_atual->Prioridade() << std::endl;
+				}
                 if(num == 7){
                         std::cout << std::endl;
                         fim = true;
@@ -109,7 +126,6 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
        
     }
 }
-
 void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, const std::string& projeto_atual){
     
     bool fim = false;

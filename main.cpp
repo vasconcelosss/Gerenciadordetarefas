@@ -17,12 +17,6 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
                 break;
             }
         }
-    
-    if(ptr_tarefa_atual == nullptr){
-        std::cout << "Tarefa não existente!" << std::endl;
-        return;
-    }
-
     while(!fim){
 
         std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
@@ -41,7 +35,7 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
         std::cout << "Digite 6: Para ver a Prioridade da sua tarefa." << std::endl;        
         std::cout << "Digite 7: Para voltar as opções anteriores." << std::endl;
 
-	    int num;
+	int num;
         std::cin >> num;
 
         if(num == 1){
@@ -126,22 +120,17 @@ void FuncoesTarefa(std::string usuario_atual, std::list<Tarefa>& tarefas, const 
        
     }
 }
+
 void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, const std::string& projeto_atual){
     
     bool fim = false;
     Projeto* ptr_projeto_atual = nullptr;
-    for(auto& proj : projetos){
-        if (proj.NomeProjeto() == projeto_atual) {
-            ptr_projeto_atual = &proj;
-            break;
+        for(auto& proj : projetos){
+            if (proj.NomeProjeto() == projeto_atual) {
+                ptr_projeto_atual = &proj;
+                break;
+            }
         }
-    }
-    
-    if(ptr_projeto_atual == nullptr){
-        std::cout << "Projeto não existente!" << std::endl;
-        return;
-    }
-
     while(!fim){
 
         std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
@@ -224,7 +213,7 @@ void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, con
                     std::cout << "Digite o nome da Tarefa a ser criada: ";
                     std::cin >> nome_tarefa;
 
-                    while(((prioridade_tarefa != "Baixa") && (prioridade_tarefa != "Media")) && (prioridade_tarefa != "Alta")){
+                    while(((prioridade_tarefa != "Baixa") || (prioridade_tarefa != "Media")) || (prioridade_tarefa != "Alta")){
                         std::cout << "Digite a Prioridade da Tarefa a ser criada (Baixa/Media/Alta): ";
                         std::cin >> prioridade_tarefa;
                     }
@@ -283,7 +272,7 @@ void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, con
 					    std::cout << "A categoria não foi definida." << std::endl;
 					}
                 }
-                if(num == 71){
+                if(num == 77){
                     std::string novaCategoria;
 
                     std::cout << "Digite a nova categoria do Projeto: ";
@@ -302,29 +291,24 @@ void FuncoesProjeto(std::string usuario_atual, std::list<Projeto>& projetos, con
     }
 }
 
-
 void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
 
 
     bool fim = false;
     int num_usuario_atual = 0;
-    for(bool achado = false; !achado; num_usuario_atual++){
-        if(users[num_usuario_atual].nomeUsuario() == usuario_atual){
-            achado = true;
+        for(bool achado = false; !achado; num_usuario_atual++){
+            if(users[num_usuario_atual].nomeUsuario() == usuario_atual){
+                achado = true;
+            }
         }
-        if((num_usuario_atual-2) > users.size()){
-            std::cout << "Usuario inexistente!" << std::endl;
-        }
-    }
-    num_usuario_atual--;
-
     while(!fim){
 
-        std::cout << std::endl << "Usuário " << users[num_usuario_atual].nomeUsuario() << std::endl;
+        std::cout << std::endl << "Usuário " << usuario_atual << std::endl;
         std::cout << std::endl << "O que deseja fazer?" << std::endl;
 
         std::cout << "Digite 1: Para criar um Projeto." << std::endl;  
-        if(users[num_usuario_atual].Projetos.size()){
+        
+        if(users[num_usuario_atual].Projetos->size()){
             std::cout << "Digite 2: Para entrar em um Projeto." << std::endl;
         }
         else{
@@ -360,7 +344,7 @@ void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
                     if(resposta == "N"){
                         respostaOk = true;
                         std::cout << "Criando sem categoria..." << std::endl;
-                        users[num_usuario_atual].Projetos.push_back(Projeto(nome_projeto, usuario_atual));
+                        users[num_usuario_atual].Projetos->push_back(Projeto(nome_projeto, usuario_atual));
                     }
                     else{
                         std::cout << "Resposta inválida! Digite S para Sim  ou  N para Não" << std::endl;
@@ -371,21 +355,20 @@ void FuncoesUsuario(std::vector<Usuario>& users, std::string usuario_atual){
             std::cout << "Projeto " << nome_projeto << " criado!" << std::endl;
             std::cout << "Entrando em " << nome_projeto << "!" << std::endl;
 
-            FuncoesProjeto(usuario_atual, users[num_usuario_atual].Projetos,nome_projeto);
+            FuncoesProjeto(usuario_atual, *users[num_usuario_atual].Projetos,nome_projeto);
         }
         else { 
             if(num == 2){
                 std::string nome_projeto;
                 std::cout << "Digite o nome do Projeto que deseja entrar: ";
                 std::cin >> nome_projeto;
-                FuncoesProjeto(usuario_atual, users[num_usuario_atual].Projetos,nome_projeto);
+                FuncoesProjeto(usuario_atual, *users[num_usuario_atual].Projetos,nome_projeto);
             }
             else {
                 if(num == 3){
                     std::cout << "Informe o número da maneira que gostaria de listar:" << std::endl;
                     std::cout << "1 - Por Nome" << std::endl;
                     std::cout << "2 - Por Categoria"  << std::endl;
-                    std::cout << "3 - Por Ordem de Criação" << std::endl;
 
                     int resposta;
                     std::cin >> resposta;
@@ -435,8 +418,7 @@ bool fim= false;
             std::string nome_usuario;
             std::cout << "Digite o nome do Usuário a ser criado: ";
             std::cin >> nome_usuario;
-            Usuario usuarioParaAdicionar(nome_usuario);
-            users.push_back(usuarioParaAdicionar);
+            users.push_back(Usuario(nome_usuario));
 
             std::cout << "Usuário " << nome_usuario << " criado!" << std::endl;
             std::cout << "Entrando em " << nome_usuario << "!" << std::endl;
@@ -459,13 +441,11 @@ bool fim= false;
     }
 }
 
-
-
 int main(){
 
     std::vector<Usuario> users;
 
-    std::cout << "\033[1;34m";
+	std::cout << "\033[1;34m";
     std::cout << "---- Bem vindo ao Gerenciador de Projetos! ----" <<  "\033[0m" << std::endl;
 
     std::cout << "\033[1;37m";
@@ -475,7 +455,7 @@ int main(){
     Inicio(users);
 
 
-    std::cout << std::endl << std::endl << "\033[1;37m";
+    std::cout << "\033[1;37m";
     std::cout << "Agradecemos por utilizar o Gerenciador de Projetos!" <<  "\033[0m" << std::endl;
 
     std::cout << "\033[1;37m"; 
@@ -484,7 +464,5 @@ int main(){
     std::cout << "\033[1;32m"; 
     std::cout << "https://github.com/vasconcelosss/Gerenciadordetarefas.git" << "\033[0m" << std::endl;
     
-    std::cout << std::endl << std::endl;
-
     return 0;
 }

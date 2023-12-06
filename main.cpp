@@ -433,9 +433,10 @@ bool fim= false;
 
         if(num == 1){
             std::string nome_usuario;
-            std::cout << "Digite o nome do Usuário a ser criado (Não mutável): ";
+            std::cout << "Digite o nome do Usuário a ser criado: ";
             std::cin >> nome_usuario;
-            users.push_back(Usuario(nome_usuario));
+            Usuario usuarioParaAdicionar(nome_usuario);
+            users.push_back(usuarioParaAdicionar);
 
             std::cout << "Usuário " << nome_usuario << " criado!" << std::endl;
             std::cout << "Entrando em " << nome_usuario << "!" << std::endl;
@@ -451,13 +452,14 @@ bool fim= false;
             }
             else {
                 if(num == 3){
-                    std::cout << "Até mais!" << std::endl;
                     fim = true;
                 }
             }
         }
     }
 }
+
+
 
 int main(){
 

@@ -369,10 +369,26 @@ int main(){
 
     std::vector<Usuario> users;
 
-	std::cout<< "---- Bem vindo ao Gerenciador de Projetos! ----" << std::endl;
-	std::cout<< "Esta aplicação foi desenvolvida visando ser rodada em sistemas Unix!" << std::endl << std::endl;
-	
+    std::cout << "\033[1;34m";
+    std::cout << "---- Bem vindo ao Gerenciador de Projetos! ----" <<  "\033[0m" << std::endl;
+
+    std::cout << "\033[1;37m";
+    std::cout<< "Esta aplicação foi desenvolvida visando ser rodada em sistemas Unix!" << std::endl;
+
+
     Inicio(users);
+
+
+    std::cout << std::endl << std::endl << "\033[1;37m";
+    std::cout << "Agradecemos por utilizar o Gerenciador de Projetos!" <<  "\033[0m" << std::endl;
+
+    std::cout << "\033[1;37m"; 
+    std::cout << "Para visualizar o código do projeto, visite o repositório no GitHub:" <<  "\033[0m" <<std::endl;
+
+    std::cout << "\033[1;32m"; 
+    std::cout << "https://github.com/vasconcelosss/Gerenciadordetarefas.git" << "\033[0m" << std::endl;
+    
+    std::cout << std::endl << std::endl;
 
     return 0;
 }

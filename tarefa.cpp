@@ -34,32 +34,37 @@ Tarefa::Tarefa(std::string nome, std::string prioridade, std::string dataConclui
 }
 
 // Retorno de membros privados da classe
-std::string Tarefa::NomeTarefa() {
+std::string Tarefa::NomeTarefa() const {
     return Tarefa::nome_;
 }
 
-std::string Tarefa::Projeto() {
+std::string Tarefa::Projeto() const {
     return Tarefa::projeto_;
 }
 
-std::string Tarefa::Prioridade() {
+std::string Tarefa::Prioridade() const {
     return Tarefa::prioridade_;
 }
 
-std::string Tarefa::CaminhoDescricao() {
+std::string Tarefa::CaminhoDescricao() const {
     return Tarefa::descricao_;
 }
 
-std::string Tarefa::DataMeta() {
+std::string Tarefa::DataMeta() const {
     return Tarefa::data_conclusao_;
 }
 
-bool Tarefa::Conclusao() {
+bool Tarefa::Conclusao() const {
     return Tarefa::conclusao_;
 }
 
 
 // Métodos de manipulação da classe
+
+void Tarefa::MudarNomedoProjeto(std::string novoProjeto){
+    projeto_ = novoProjeto;
+}
+
 void Tarefa::MudarNome(std::string novoNome){
 
     std::string antigo_nome = projeto_ + "/" + nome_;
@@ -67,6 +72,10 @@ void Tarefa::MudarNome(std::string novoNome){
 
     rename(antigo_nome.c_str(), novo_nome.c_str());
     nome_ = novoNome;
+}
+
+void Tarefa::MudarDataMeta(std::string novaData){
+    data_conclusao_ = novaData;
 }
 
 void Tarefa::ConcluirTarefa() {
@@ -100,7 +109,7 @@ void Tarefa::MudarDescricao(std::string NovaDescricao){
     }
 }
 
-void Tarefa::ExibiDescricao(){
+void Tarefa::ExibiDescricao() const {
     std::ifstream arquivo(descricao_);
 
     if (arquivo.is_open()) {

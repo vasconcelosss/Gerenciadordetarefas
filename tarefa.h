@@ -20,21 +20,25 @@ public:
     Tarefa(std::string nome, std::string prioridade, std::string dataConcluir, std::string projeto);
 
     // Retorno de membros privados da classe
-    std::string NomeTarefa();
+    std::string NomeTarefa() const;
 
-    std::string Projeto();
+    std::string Projeto() const;
 
-    std::string Prioridade();
+    std::string Prioridade() const;
 
-    std::string CaminhoDescricao();
+    std::string CaminhoDescricao() const;
 
-    std::string DataMeta();
+    std::string DataMeta() const;
 
-    bool Conclusao();
+    bool Conclusao() const;
 
 
     // Métodos de manipulação da classe
+    void MudarNomedoProjeto(std::string novoProjeto); //Modifica o nome do Projeto que contem a Tarefa
+
     void MudarNome(std::string novoNome); // Muda o nome da Tarefa
+
+    void MudarDataMeta(std::string novaData); // Muda a data de meta da conclusão da Tarefa
 
     void ConcluirTarefa(); // Muda o status de conclusão para valor Verdadeiro
 
@@ -42,7 +46,7 @@ public:
 
     // Pré-condição: Arquivo de descrição já existe
     void MudarDescricao(std::string NovaDescricao); // Apaga o conteúdo da descrição e substitui por um outro pedido na função
-    void ExibiDescricao();
+    void ExibiDescricao() const;
 
 private:
     std::string nome_;

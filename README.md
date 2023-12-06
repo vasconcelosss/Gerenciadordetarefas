@@ -9,7 +9,15 @@ O Gerenciador de Projetos é implementado em C++ usando a versão de 2011 da lin
 
 ## Classes:
 ### Class `Usuarios`:
-Responsável por gerenciar informações do usuário, como seu nome e a pasta onde os projetos são armazenados.
+Responsável pela criação e manipulação de usuários, projetos e tarefas, permitindo a adição de projetos, alteração de nomes de usuários e a listagem de projetos de acordo com diferentes critérios de ordenação.
+- Classe Usuario representa um usuário do sistema. Quando um objeto Usuário é criado, um diretório com o nome do usuário é criado no sistema de arquivos.
+- Métodos da classe:
+    - AdicionaProjeto(Projeto p): Adiciona um projeto à lista de projetos do usuário.
+    - MudarNome(std::string novoNome): Altera o nome do usuário e atualiza o nome do usuário em todos os projetos associados.
+    - ListarProjetos(int forma) const: Lista os projetos do usuário de acordo com a forma especificada. Os projetos são listados ordenados de acordo com o critério especificado.
+- Funções auxiliares:
+    - OrdenaNomes1(std::vector<Projeto> projetos): Função auxiliar para ordenar os nomes dos projetos de acordo com o critério 1.
+    - OrdenaNomes2(std::vector<Projeto> projetos): Função auxiliar para ordenar os nomes dos projetos de acordo com o critério 2.
 #### Colaborações:
 - `string projetos`
 - `string nome`

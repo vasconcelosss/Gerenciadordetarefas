@@ -64,7 +64,11 @@ Responsável por gerenciar informações dos projetos, incluindo nome, descriç�
   
 
 ### Class `Tarefas`:
-Responsável por gerenciar informações das tarefas, incluindo nome, prioridade, descrição, data de conclusão e status de conclusão.
+Responsável pela criação, manipulação e visualização de tarefas em um sistema de gerenciador de tarefas. Ele utiliza, operações de manipulação de arquivos e diretórios para realizar essas tarefas.
+- A função CriaDiretorioTarefa cria um diretório para a tarefa, utilizando o nome do projeto e o nome da tarefa.
+- Os construtores inicializam os membros da classe com os valores fornecidos e chamam a função CriaDiretorioTarefa para criar o diretório da tarefa
+- Os métodos NomeTarefa, Projeto, Prioridade, CaminhoDescrição, DataMeta e Conclusão retornam os valores dos membros privados da classe
+- Os métodos MudarNomedoProjeto, MudarNome, MudarDataMeta, ConcluirTarefa, Descrever, MudarDescricao e ExibiDescrizo realizam operações como mudar o nome do projeto, mudar o nome da tarefa, mudar a data de conclusão, marcar a tarefa como concluída, descrever a tarefa, mudar a descrição e exibir a descrição, respectivamente.
 #### Colaborações:
 - `string nome_`
 - `string projeto_`
